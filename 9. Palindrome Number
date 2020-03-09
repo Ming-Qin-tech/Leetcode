@@ -6,7 +6,7 @@ public:
         if(x < 0)
             return false;
         int len = 1;
-        while(x / len >= 10) {
+        while(x / len >= 10) {             // */*注意必须为">="而非">"
             len = len * 10;                //为了取最高位上的数
         }
         while(x) {
