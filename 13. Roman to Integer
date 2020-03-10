@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        std::map<char, int> map1;
+        map1['I'] = 1;
+        map1['V'] = 5;
+        map1['X'] = 10;
+        map1['L'] = 50;
+        map1['C'] = 100;
+        map1['D'] = 500;
+        map1['M'] = 1000;
+        int sum = 0;
+        for(int i = 0; i < s.size(); i++){
+            sum = sum + map1[s[i]];
+        }
+        for(int i = 0; i < s.size(); i++){
+            if(s[i] == 'I' && (s[i + 1] == 'V' || s[i + 1] == 'X')){
+                sum = sum - 2;
+                i++;
+            }
+            else if(s[i] == 'X' && (s[i + 1] == 'L' || s[i + 1] == 'C')){
+                sum = sum - 20;
+                i++;
+            }
+            else if(s[i] == 'C' && (s[i + 1] == 'D' || s[i + 1] == 'M')){
+                sum = sum - 200;
+                i++;
+            }
+        }
+        
+        
+        
+        柳婼：
+        class Solution {
+public:
+    int romanToInt(string s) {
+        int ans = 0;
+        map<char, int> m;
+        char c[] = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+        int t[] = {1, 5, 10, 50, 100, 500, 1000};
+        for(int i = 0; i < 7; i++) {
+            m.insert(pair<char, int> (c[i], t[i]));     //学习这种map方式
+        }
+        for(int i = 0; i < s.length() - 1; i++) {       //防止内存溢出
+            if(m[s[i]] >= m[s[i + 1]]) {
+                ans = ans + m[s[i]];
+            } else {
+                ans = ans - m[s[i]];
+            }
+        }
+        ans = ans + m[s[s.length() - 1]];
+        return ans;
+    }
+};
+    return sum;
+    }
+};
+
