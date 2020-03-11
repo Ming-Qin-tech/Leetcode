@@ -1,0 +1,48 @@
+未完成
+class Solution {
+public:
+    bool isValid(string s) {
+        std::map<char, char> m;
+        char c1[] = ['{', '}','[', ']', '(',')'];
+        char c2[] = [ '0','{','0','[','0', '('];
+        for(int i = 0; i < 6; i ++){
+            m.insert(pair<char, char> (c1[i],c2[i]));    
+        }
+        
+        std::stack<char> stack1;
+        for(int i = 0; i < s.length(); i++){
+            stack1.push(s[i]);
+        }
+    }
+};
+
+参考别人代码，自己修改版
+class Solution {
+public:
+    bool isValid(string s) {
+        if(s.length() == 1)
+            return false;
+        std::map<char, char> m;
+        std::stack<char> stack1;
+        char c1[] = {'{', '}','[', ']', '(',')'};
+        char c2[] = {'0','{','0','[','0', '('};
+        for(int i = 0; i < 6; i ++){
+            m.insert(pair<char, char> (c1[i],c2[i]));    
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            if(m[s[i]] == '0')
+                stack1.push(s[i]);
+            else if(stack1.empty())
+                return false;
+            else if(m[s[i]] == stack1.top())     //在stack空时，调用top()会发生内存溢出错误
+                stack1.pop();
+            else if(m[s[i]] != stack1.top())
+                return false;
+        }
+        
+        if(stack1.empty())
+            return true;
+        return false;
+    }
+};
